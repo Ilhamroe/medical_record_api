@@ -1,17 +1,29 @@
-FROM php:8.2-fpm
-ARG user
-ARG uid
-RUN apt update && apt install -y \
+# Base image
+FROM php:8.1-fpm
+
+# Set working directory
+WORKDIR /var/www
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    zip \
+    unzip \
     git \
     curl \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev
-RUN apt clean && rm -rf /var/lib/apt/lists/*
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+
+# Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-RUN useradd -G www-data,root -u $uid -d /home/$user $user
-RUN mkdir -p /home/$user/.composer && \
-    chown -R $user:$user /home/$user
-WORKDIR /var/www
-USER $user
+
+# Copy existing application directory contents
+COPY . /var/www
+
+# Copy existing application directory permissions
+COPY --chown=www-data:www-data . /var/www
+
+# Expose port 9000 and start php-fpm server
+EXPOSE 9000
+CMD ["php-fpm"]
