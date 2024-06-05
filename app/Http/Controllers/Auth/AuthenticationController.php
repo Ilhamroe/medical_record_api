@@ -110,7 +110,7 @@ class AuthenticationController extends Controller
             $userData['password'] = Hash::make($validatedData['password']);
         }
 
-        if (isset($validatedData['role'])) {
+        if (!empty($validatedData['role'])) {
             $userData['role'] = $validatedData['role'];
         }
 
