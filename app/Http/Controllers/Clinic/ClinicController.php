@@ -112,7 +112,7 @@ class ClinicController extends Controller
         Clinic::create([
             'doctor_id' => Auth::user()->id,
             'patient_id' => $validatedData['patient_id'],
-            'dated' => $validatedData['dated'],
+            'dated' => date('Y-m-d', strtotime($validatedData['birth'])),
             'symptom' => $validatedData['symptom'],
             'diagnosis' => $validatedData['diagnosis'],
             'drug' => $validatedData['drug'],
