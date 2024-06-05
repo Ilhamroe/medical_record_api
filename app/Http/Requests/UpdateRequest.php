@@ -22,9 +22,9 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'nullable|string|max:255',
-            'nrp' => 'nullable|string|max:255',
-            'email' => 'nullable|string|email|max:255',
+            'name' => 'required|string|max:255',
+            'nrp' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
             'password' => 'nullable|min:6',
             'role' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\UpdateRequest;
 use App\Models\Clinic;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -87,7 +88,7 @@ class AuthenticationController extends Controller
         ]);
     }
 
-    public function update(RegisterRequest $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
         $user = User::findOrFail($id);
 
