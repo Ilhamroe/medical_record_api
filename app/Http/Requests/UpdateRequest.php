@@ -11,7 +11,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,6 +26,7 @@ class UpdateRequest extends FormRequest
             'nrp' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
             'password' => 'nullable|min:6',
+            'role' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'gender' => 'nullable|string|max:255',
             'birth' => 'nullable|date',

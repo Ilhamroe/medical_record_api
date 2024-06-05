@@ -100,16 +100,21 @@ class AuthenticationController extends Controller
             'name' => $validatedData['name'],
             'nrp' => $validatedData['nrp'],
             'email' => $validatedData['email'],
-            // 'role' => $validatedData['role'],
         ];
+
+        if (!empty($validatedData['password'])) {
+            $userData['password'] = Hash::make($validatedData['password']);
+        }
+
+        if (!empty($validatedData['role'])) {
+            $userData['role'] = $validatedData['role'];
+        }
+
 
         if ($imagePath) {
             $userData['image'] = $imagePath;
         }
 
-        if (!empty($validatedData['password'])) {
-            $userData['password'] = Hash::make($validatedData['password']);
-        }
 
         $userData['gender'] = optional($validatedData)['gender'];
         $userData['birth'] = optional($validatedData)['birth'] ? date('Y-m-d', strtotime($validatedData['birth'])) : null;
