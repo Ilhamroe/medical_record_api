@@ -109,6 +109,7 @@ class ClinicController extends Controller
     {
         $validatedData = $request->validated();
 
+        // dd(date('Y-m-d', strtotime($validatedData['dated'])));
         Clinic::create([
             'doctor_id' => Auth::user()->id,
             'patient_id' => $validatedData['patient_id'],
