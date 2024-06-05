@@ -91,7 +91,6 @@ class AuthenticationController extends Controller
     public function update(UpdateRequest $request, $id)
     {
         $user = User::findOrFail($id);
-
         $validatedData = $request->validated();
 
         $imagePath = $this->handleImageUpload($request, 'image', $user->image);
@@ -100,11 +99,13 @@ class AuthenticationController extends Controller
             'name' => $validatedData['name'],
             'nrp' => $validatedData['nrp'],
             'email' => $validatedData['email'],
+            'gender' => $validatedData['gender'] ?? null,
+            'birth' => isset($validatedData['birth']) ? date('Y-m-d', strtotime($validatedData['birth'])) : null,
+            'number' => $validatedData['number'] ?? null,
+            'height' => $validatedData['height'] ?? null,
+            'weight' => $validatedData['weight'] ?? null,
+            'description' => $validatedData['description'] ?? null
         ];
-
-        if ($imagePath) {
-            $userData['image'] = $imagePath;
-        }
 
         if (!empty($validatedData['password'])) {
             $userData['password'] = Hash::make($validatedData['password']);
@@ -114,12 +115,9 @@ class AuthenticationController extends Controller
             $userData['role'] = $validatedData['role'];
         }
 
-        $userData['gender'] = optional($validatedData)['gender'];
-        $userData['birth'] = optional($validatedData)['birth'] ? date('Y-m-d', strtotime($validatedData['birth'])) : null;
-        $userData['number'] = optional($validatedData)['number'];
-        $userData['height'] = optional($validatedData)['height'];
-        $userData['weight'] = optional($validatedData)['weight'];
-        $userData['description'] = optional($validatedData)['description'];
+        if ($imagePath) {
+            $userData['image'] = $imagePath;
+        }
 
         $user->update($userData);
 
