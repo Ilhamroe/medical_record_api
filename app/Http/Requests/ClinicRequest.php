@@ -24,10 +24,10 @@ class ClinicRequest extends FormRequest
         return [
             'patient_id' => 'required',
             'dated' => 'required|date',
-            'symptom' => 'required',
-            'diagnosis' => 'required',
-            'drug' => 'required',
-            'advice' => 'required',
+            'symptom' => 'required|string|max:255',
+            'diagnosis' => 'required|string|max:255',
+            'drug' => 'required|string|max:255',
+            'advice' => 'required|string|max:255',
         ];
     }
 }
