@@ -100,6 +100,7 @@ class AuthenticationController extends Controller
             'name' => $validatedData['name'],
             'nrp' => $validatedData['nrp'],
             'email' => $validatedData['email'],
+            'role' => $validatedData['role'],
         ];
 
         if ($imagePath) {
