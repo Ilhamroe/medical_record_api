@@ -110,7 +110,10 @@ class AuthenticationController extends Controller
             $userData['password'] = Hash::make($validatedData['password']);
         }
 
-        $userData['role'] = optional($validatedData)['role'];
+        if (isset($validatedData['role'])) {
+            $userData['role'] = $validatedData['role'];
+        }
+
         $userData['gender'] = optional($validatedData)['gender'];
         $userData['birth'] = optional($validatedData)['birth'] ? date('Y-m-d', strtotime($validatedData['birth'])) : null;
         $userData['number'] = optional($validatedData)['number'];
