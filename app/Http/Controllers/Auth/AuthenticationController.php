@@ -53,6 +53,10 @@ class AuthenticationController extends Controller
             $userData['weight'] = $validatedData['weight'];
         }
 
+        if (isset($validatedData['description'])) {
+            $userData['description'] = $validatedData['description'];
+        }
+
         $user = User::create($userData);
 
         return response([
