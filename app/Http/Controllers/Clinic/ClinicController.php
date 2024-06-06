@@ -45,9 +45,11 @@ class ClinicController extends Controller
 
         try {
             $clinic = Clinic::with('patient', 'doctor')->where('patient_id', Auth::user()->id)->get();
+            // dd(Auth::user());
             $mappedData = $clinic->map(function ($dataHistoryUser) {
                 return [
                     'id' => $dataHistoryUser->id,
+                    'patient' => $dataHistoryUser->patient->name,
                     'doctor' => $dataHistoryUser->doctor->name,
                     'dated' => $dataHistoryUser->dated,
                     'symptom' => $dataHistoryUser->symptom,
