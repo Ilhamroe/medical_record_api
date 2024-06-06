@@ -29,6 +29,7 @@ class User extends Authenticatable
         'number',
         'height',
         'weight',
+        'description'
     ];
 
     /**
